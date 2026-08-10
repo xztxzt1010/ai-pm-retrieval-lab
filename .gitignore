@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Obsidian workspace (per-user, not versioned)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+.obsidian/cache
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Backup files
+*.bak-*.docx
+
+# Temp files
+*.tmp.*
