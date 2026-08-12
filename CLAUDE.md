@@ -20,6 +20,15 @@ Use /three-review for substantial development tasks in this project.
 - Do not add dependencies, storage, UI, architecture, or background services unless required.
 - 算法/稳定性任务给指标证据，不允许只宣称"优化了"。
 
+## Frontend rules
+
+- 所有 HTML 页面默认使用 Tailwind CSS CDN（`<script src="https://cdn.tailwindcss.com"></script>`），不引入自定义 CSS 文件。
+- 样式全部用 Tailwind utility classes，不用 `<style>` 块或外部 `.css` 文件（除非有充分理由）。
+- 设计语言参考 Linear/Notion/Vercel：白底或深色渐变、柔和阴影、圆角（rounded-xl/2xl）、indigo-600 主色。
+- 响应式必须用 Tailwind 的 sm:/md:/lg: 前缀，不写 @media 查询。
+- 图表用纯 SVG 内联，不引入 Chart.js 等外部库。
+- 不引入任何 JS 框架（React/Vue/Angular）或构建工具。
+
 ## Workflow expectations
 
 - 大任务以 `/three-review` 启动；回复以状态栏开头：`Workflow: three-review` / `Stage` / `Scope`。
