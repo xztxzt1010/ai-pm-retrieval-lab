@@ -3,7 +3,6 @@
 //
 // 路由：
 //   GET /                 → showcase.html
-//   GET /style.css        → 样式
 //   GET /app.js           → 前端逻辑
 //   GET /api/search?q=&top= → 知识库检索（复用 kb/lib 的 indexer + retriever）
 //   GET /api/stats        → 知识库统计 + 001 任务进度
@@ -25,7 +24,6 @@ const MIME = {
 };
 const STATIC = {
   '/': 'showcase.html',
-  '/style.css': 'style.css',
   '/app.js': 'app.js',
 };
 
