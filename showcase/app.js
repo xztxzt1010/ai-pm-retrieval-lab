@@ -75,13 +75,18 @@ function skeletonHTML() {
   ).join('');
 }
 
+/* 并发防护：记录 in-flight 搜索，新搜索先中止上一次，避免慢响应覆盖新结果 */
+let currentSearch = null;
+
 async function doSearch() {
   const q = input.value.trim();
   if (!q) return;
+  if (currentSearch) currentSearch.abort();
   setStatus('loading', `正在检索「${escapeHtml(q)}」…`);
   resultsEl.innerHTML = skeletonHTML();
 
   const ctrl = new AbortController();
+  currentSearch = ctrl;
   const timer = setTimeout(() => ctrl.abort(), 8000);
   try {
     const resp = await fetch(`/api/search?q=${encodeURIComponent(q)}&top=5`, { signal: ctrl.signal });
@@ -92,6 +97,7 @@ async function doSearch() {
     const data = await resp.json();
     renderResults(data);
   } catch (err) {
+    if (ctrl !== currentSearch) return; // 已被更新的搜索取代，忽略旧请求的清理
     resultsEl.innerHTML = '';
     if (err.name === 'AbortError') {
       setStatus('error', '请求超时，请检查服务是否在运行后重试');
@@ -100,6 +106,7 @@ async function doSearch() {
     }
   } finally {
     clearTimeout(timer);
+    if (currentSearch === ctrl) currentSearch = null;
   }
 }
 
