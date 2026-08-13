@@ -9,7 +9,7 @@
 ## 0. 前置：重启
 
 ```bash
-cd E:\pm-rag-agent
+cd <project-dir>
 claude
 ```
 
@@ -64,7 +64,7 @@ test-designer           metric-gate             rollback-planner
 **成功标志**：Claude 输出 `verdict: ...`。**实测（2026-08-05）本端点上 6 个审查角色全部真实 spawn 成功并返回 verdict**，这是理想结果；若 API 波动导致 spawn 失败，走主对话模拟（`[simulated role: ...]`）也算通过。
 
 **失败排查**：
-- 看不到 6 个名字 → 检查 `C:\Users\xzt23\.claude\agents\` 下 6 个 md 文件是否存在；重启 session。
+- 看不到 6 个名字 → 检查 `<user-home>\.claude\agents\` 下 6 个 md 文件是否存在；重启 session。
 - 注意：如果在测试项目里建了同名项目级 agent，会覆盖用户级，属正常。
 
 ---
@@ -73,12 +73,12 @@ test-designer           metric-gate             rollback-planner
 
 **操作**：对 Claude 说：
 
-> 用文档能力生成一个 docx，标题为"三审查工作流验证"，正文写三句话介绍这个流程，保存到 E:\pm-rag-agent\ 下。
+> 用文档能力生成一个 docx，标题为"三审查工作流验证"，正文写三句话介绍这个流程，保存到 <project-dir>\ 下。
 
 **观察**：Claude 是否加载 docx skill（会在思考里参考 SKILL.md），用 Node 写脚本调用 `docx` 包生成文件。
 
 **成功标志**：
-- 生成了 `E:\pm-rag-agent\*.docx`，文件大小 > 0，能双击打开；
+- 生成了 `<project-dir>\*.docx`，文件大小 > 0，能双击打开；
 - 对话里能看到它创建/运行了 `.js` 脚本。
 
 **失败排查**：
@@ -137,10 +137,10 @@ Scope: 本轮只处理 <你的需求边界>
 **操作**：开一个**新 session**，输入 `/six-role-drill`，工作对象传本次要验证的文件。PRD 实例（见下）。skill 会驱动六个角色全部出场、各自输出固定首键并给出自证块。
 
 **PRD 实例的工作对象**（重跑时原样传入）：
-- `E:/pm-rag-agent/PRD初稿.docx`
-- `E:/pm-rag-agent/gen_prd_draft.js`
-- `E:/pm-rag-agent/kb/product-strategy.md`
-- `E:/pm-rag-agent/kb/prd-template.md`
+- `<project-dir>/PRD初稿.docx`
+- `<project-dir>/gen_prd_draft.js`
+- `<project-dir>/kb/product-strategy.md`
+- `<project-dir>/kb/prd-template.md`
 
 **metric-gate 口径（PRD 实例，重跑需复用或显式替换）**：
 - 完整度 = PRD初稿.docx 文本中六节标题（背景与问题/目标与完成标准/范围/用户场景与边界/验证方案/风险与回滚）出现数，目标 = 6。
@@ -171,7 +171,7 @@ Scope: 本轮只处理 <你的需求边界>
 | 检查项 | 通过 ? | 备注 |
 |---|---|---|
 | 1. GitHub MCP（mcp__github__*） | ☑ | 2026-08-05 调用 `mcp__github__get_me` 返回 xztxzt1010，token 生效 |
-| 2. /agents 6 角色 | ☑ | 6 个 md 文件在 `C:\Users\xzt23\.claude\agents\`，agent 列表已加载 |
+| 2. /agents 6 角色 | ☑ | 6 个 md 文件在 `<user-home>\.claude\agents\`，agent 列表已加载 |
 | 3. document-skills 生成 docx | ☑ | 生成 `三审查工作流验证.docx`（8823B，ZIP/XML 校验通过）；首次需 `npm install docx` |
 | 4. /three-review 状态栏 | ☑ | 2026-08-05 真实启动测试通过：状态栏出现；6 个 subagent 均可 spawn；premise/assumption/range/final 全流程跑通 |
 | 5. hook 自动兜底 | ☑ | session 启动时 `[three-review gate]` 提醒已注入 |

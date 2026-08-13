@@ -117,7 +117,7 @@ kb/
 
 ## 六、给 DeepSeek 的完整启动指令
 
-复制以下内容到 Claude Code（`E:\pm-rag-agent` 目录下）：
+复制以下内容到 Claude Code（`<project-dir>` 目录下）：
 
 ```
 读取 ai-workspace/plans/001-kb-retrieval/plan.md 和 acceptance.md。

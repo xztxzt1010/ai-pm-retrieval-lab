@@ -2,7 +2,7 @@
 
 面向 AI 产品经理求职作品集的本地实验项目。它记录了从工作流设计、知识库检索基线，到产品经理工作台 MVP 的完整演进过程。
 
-> 当前状态：本地可运行的 MVP。检索层使用 TF-IDF，并非完整的向量 RAG；Agent 工作流的核心 skills/agents 仍有一部分位于作者本机配置中，公开可复现版本正在整理。
+> 当前状态：本地可运行的 MVP。**检索层是 TF-IDF 中文知识库检索 baseline**（jieba 中文分词 + 余弦相似度），**不是 embedding / 向量 RAG**，未接入向量库或 reranker。未来升级路径：BM25 + 本地 embedding 的混合检索 → 带来源引用的回答生成。Agent 工作流的核心 skills/agents 仍有一部分位于作者本机配置中，公开可复现版本正在整理。
 
 ## 三个项目板块
 
@@ -18,13 +18,17 @@
 
 ### 2. 本地知识库检索
 
-`kb/` 是独立 Git 子模块，已实现：
+`kb/` 是独立 Git 子模块（检索引擎 + 语料 + 评测基准），已实现：
 
 - Markdown 递归扫描与按标题切块
 - jieba 中文分词与领域词典
 - TF-IDF 稀疏向量与余弦相似度
 - Top-K CLI 检索与来源标注
 - 中文、英文、无关查询及边界测试
+
+**为什么用 Git 子模块？** 检索核心（`kb/`）是独立的可复用仓库，可以单独演进、单独共享；主仓库负责作品集叙事与过程记录。若把 kb 的内容直接复制进主仓库会破坏"引擎独立、可单独交付"的边界。
+
+**两个仓库当前均为 PRIVATE（私有）。** 分享本作品集时，需要对 `pm-rag-agent` 与 `pm-rag-kb` **两个仓库都授予访问权限**，否则 `git clone --recurse-submodules` 拉取 `kb/` 子模块会失败。以下命令对已获授权的读者有效：
 
 ```powershell
 git clone --recurse-submodules https://github.com/xztxzt1010/pm-rag-agent.git

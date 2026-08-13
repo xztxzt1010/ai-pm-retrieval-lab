@@ -18,8 +18,8 @@
 
 **验证命令与输出**：
 ```bash
-grep -n "禁止拿生成脚本当验证手段" "C:/Users/xzt23/.claude/skills/three-review/SKILL.md"
-grep -n "固定口径" "C:/Users/xzt23/.claude/skills/three-review/SKILL.md"
+grep -n "禁止拿生成脚本当验证手段" "<user-home>/.claude/skills/three-review/SKILL.md"
+grep -n "固定口径" "<user-home>/.claude/skills/three-review/SKILL.md"
 ```
 ```
 61:   - ... 禁止拿生成脚本当验证手段，产物内容用只读/独立方式提取 ...
@@ -36,15 +36,15 @@ grep -n "固定口径" "C:/Users/xzt23/.claude/skills/three-review/SKILL.md"
 **状态**：✅ 完成
 
 **做了什么**：
-- 在 `C:\Users\xzt23\.claude\skills\six-role-drill\SKILL.md` 新建独立 skill，从 VERIFY.md 检查 6 的内联指令升级为可复用回归工具。
+- 在 `<user-home>\.claude\skills\six-role-drill\SKILL.md` 新建独立 skill，从 VERIFY.md 检查 6 的内联指令升级为可复用回归工具。
 - 保留原设计的核心判定：**机制与格式验证**（能 spawn / 输出约定格式）、**只读纪律**（演练全程不改文件）、**可判定出场**（角色名出现在叙述里不算出场，必须有输出块 + 固定格式首键）。
 - 固化本次演练暴露的审计规则：(a) 归因注意——premise 与 range 都输出 `verdict`，grep 无法区分，必须靠 spawn/simulated 标记；(b) 叙述 ≠ 出场。
 - 状态栏要求、六角色固定出场（忽略 three-review 的可选性）、五条成功判定、metric-gate 口径四要素、按对象类型的只读采集分支（docx→unzip/zlib，md/txt→grep/Read）、结尾自证块 `### 六角色出场自证`、转录 grep 清单（三组命令）、失败排查、交付报告。
 
 **验证命令与输出**：
 ```bash
-grep -n "name: six-role-drill" "C:/Users/xzt23/.claude/skills/six-role-drill/SKILL.md"
-grep -n "### 六角色出场自证" "C:/Users/xzt23/.claude/skills/six-role-drill/SKILL.md"
+grep -n "name: six-role-drill" "<user-home>/.claude/skills/six-role-drill/SKILL.md"
+grep -n "### 六角色出场自证" "<user-home>/.claude/skills/six-role-drill/SKILL.md"
 ```
 ```
 1: ---
@@ -53,7 +53,7 @@ grep -n "### 六角色出场自证" "C:/Users/xzt23/.claude/skills/six-role-dril
 69: ### 六角色出场自证
 ```
 
-**遇到的问题**：range-review 发现 assumption-challenger 输出首键在表里写错为 `verdict`，实际 agent 定义（`C:\Users\xzt23\.claude\agents\assumption-challenger.md` 第 62 行）用的是 `risk: <LOW_RISK | MEDIUM_RISK | HIGH_RISK>`。修正 3 处（角色表、成功判定、grep ③ 拆分）。
+**遇到的问题**：range-review 发现 assumption-challenger 输出首键在表里写错为 `verdict`，实际 agent 定义（`<user-home>\.claude\agents\assumption-challenger.md` 第 62 行）用的是 `risk: <LOW_RISK | MEDIUM_RISK | HIGH_RISK>`。修正 3 处（角色表、成功判定、grep ③ 拆分）。
 
 ---
 
@@ -69,7 +69,7 @@ grep -n "### 六角色出场自证" "C:/Users/xzt23/.claude/skills/six-role-dril
 
 **验证命令与输出**：
 ```bash
-grep -c '^```' "E:/pm-rag-agent/VERIFY.md"
+grep -c '^```' "<project-dir>/VERIFY.md"
 ```
 ```
 12   # 6 对 fence，平衡
@@ -91,7 +91,7 @@ grep -c '^```' "E:/pm-rag-agent/VERIFY.md"
 
 **验证命令与输出**：
 ```bash
-for r in premise-overturner assumption-challenger test-designer metric-gate rollback-planner range-creep-guardian; do test -f "C:/Users/xzt23/.claude/agents/$r.md" && echo "OK $r"; done
+for r in premise-overturner assumption-challenger test-designer metric-gate rollback-planner range-creep-guardian; do test -f "<user-home>/.claude/agents/$r.md" && echo "OK $r"; done
 ```
 ```
 OK premise-overturner
@@ -102,7 +102,7 @@ OK rollback-planner
 OK range-creep-guardian
 ```
 ```bash
-grep -n "risk" "C:/Users/xzt23/.claude/agents/assumption-challenger.md"
+grep -n "risk" "<user-home>/.claude/agents/assumption-challenger.md"
 ```
 ```
 62: - 输出 `risk: <LOW_RISK | MEDIUM_RISK | HIGH_RISK>` ...
@@ -124,7 +124,7 @@ grep -n "risk" "C:/Users/xzt23/.claude/agents/assumption-challenger.md"
 
 **验证命令与输出**：
 ```bash
-node -e "const c=require('C:/Users/xzt23/.claude/settings.local.json'); console.log(c.permissions.allow.length)"
+node -e "const c=require('<user-home>/.claude/settings.local.json'); console.log(c.permissions.allow.length)"
 ```
 ```
 24   # 原 9 + 新 15，JSON 解析通过
@@ -140,10 +140,10 @@ node -e "const c=require('C:/Users/xzt23/.claude/settings.local.json'); console.
 
 | 文件 | 操作 | 说明 |
 |---|---|---|
-| `C:\Users\xzt23\.claude\skills\three-review\SKILL.md` | 修改 | 第 61 行：只读验证纪律；第 128 行：metric-gate 固定口径四要素 |
-| `C:\Users\xzt23\.claude\skills\six-role-drill\SKILL.md` | 新增 | 独立六角色演练 skill（含 (a)(b) 审计规则、状态栏、只读采集分支、五条成功判定、grep 清单） |
-| `E:\pm-rag-agent\VERIFY.md` | 修改 | 检查 6 改为引用 skill 单一真源，保留 2026-08-06 历史证据，钉死 metric-gate 口径 |
-| `C:\Users\xzt23\.claude\settings.local.json` | 修改 | permissions.allow 新增 15 条精确 grep 命令前缀（六角色 spawn/simulated + 3 输出键），原 9 条保留 |
+| `<user-home>\.claude\skills\three-review\SKILL.md` | 修改 | 第 61 行：只读验证纪律；第 128 行：metric-gate 固定口径四要素 |
+| `<user-home>\.claude\skills\six-role-drill\SKILL.md` | 新增 | 独立六角色演练 skill（含 (a)(b) 审计规则、状态栏、只读采集分支、五条成功判定、grep 清单） |
+| `<project-dir>\VERIFY.md` | 修改 | 检查 6 改为引用 skill 单一真源，保留 2026-08-06 历史证据，钉死 metric-gate 口径 |
+| `<user-home>\.claude\settings.local.json` | 修改 | permissions.allow 新增 15 条精确 grep 命令前缀（六角色 spawn/simulated + 3 输出键），原 9 条保留 |
 | `ai-workspace/plans/100-six-role-drill/report.md` | 新增 | 本报告 |
 
 ### 验证摘要
@@ -167,7 +167,7 @@ node -e "const c=require('C:/Users/xzt23/.claude/settings.local.json'); console.
 ### 后续建议
 
 1. **重跑一次 /six-role-drill**（PRD 实例，工作对象：PRD初稿.docx / gen_prd_draft.js / kb/product-strategy.md / kb/prd-template.md），验证 skill 版机制，即完成 VERIFY.md 检查 6 对 skill 版的覆盖。
-2. **Codex 审查**本报告与 `C:\Users\xzt23\.claude\skills\six-role-drill\SKILL.md`，重点看 grep 清单与五条成功判定的可判定性。
+2. **Codex 审查**本报告与 `<user-home>\.claude\skills\six-role-drill\SKILL.md`，重点看 grep 清单与五条成功判定的可判定性。
 3. **真实任务观察**：在下一个自然开发任务中观察六角色是否按阶段真实触发，补"语义正确性"证据。
 4. **Qwen 补充 plan/acceptance**：如需将"六角色设计"作为一个持续演进的任务立项，可补 plan.md + acceptance.md。
 

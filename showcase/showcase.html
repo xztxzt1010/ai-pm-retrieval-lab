@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="flex flex-wrap gap-2">
-        <span class="px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-200 text-xs font-medium">RAG 知识库检索</span>
+        <span class="px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-200 text-xs font-medium">TF-IDF 知识库检索</span>
         <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-200 text-xs font-medium">三审查 Agent 工作流</span>
         <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-200 text-xs font-medium">多 AI 协作流水线</span>
       </div>
@@ -35,7 +35,7 @@
     <!-- ① 知识库实时检索 -->
     <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
       <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">🔍</span> 知识库检索</h2>
-      <p class="text-sm text-slate-500 mt-1 mb-6">从 15 份产品文档与 11 份真实 AI 产品经理 JD 中实时检索最相关片段（TF-IDF + jieba 中文分词）</p>
+      <p class="text-sm text-slate-500 mt-1 mb-6">对 15 个 Markdown 语料文件（含 11 份真实 AI 产品经理 JD）实时做 TF-IDF 检索：jieba 中文分词 + 余弦相似度，返回最相关片段与来源</p>
       <div class="flex flex-col sm:flex-row gap-3">
         <input id="search-input" type="text" placeholder="输入关键词，如「产品经理」「RAG 知识库」…" autocomplete="off"
           class="flex-1 px-4 py-3 rounded-xl border border-slate-300 bg-gray-50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition" />
@@ -224,7 +224,7 @@
   </main>
 
   <footer class="bg-slate-900 text-slate-400 text-center py-8 text-xs sm:text-sm">
-    PM 智能工作台 · RAG 知识库 + Agent 工作流 + 多 AI 协作 · 作品集演示
+    PM 智能工作台 · TF-IDF 知识库检索 + Agent 工作流 + 多 AI 协作 · 作品集演示
   </footer>
 
   <script src="app.js"></script>
