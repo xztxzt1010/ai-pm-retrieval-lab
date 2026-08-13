@@ -1,0 +1,18 @@
+{
+  "name": "ai-pm-retrieval-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI 产品经理岗位知识检索实验：TF-IDF 词法检索基线（jieba 中文分词 + 余弦相似度）+ 可复现评测",
+  "scripts": {
+    "test": "node kb/test/search.test.mjs",
+    "eval": "node kb/eval/run-eval.mjs",
+    "search": "node kb/search.mjs",
+    "capability": "node scripts/generate-capability-report.js",
+    "demo": "node showcase/server.mjs",
+    "verify": "node kb/test/search.test.mjs && node kb/eval/run-eval.mjs"
+  },
+  "dependencies": {
+    "@node-rs/jieba": "^2.0.1"
+  }
+}

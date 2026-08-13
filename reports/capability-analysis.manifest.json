@@ -1,0 +1,204 @@
+{
+  "scriptVersion": "2.0.0",
+  "generatedAt": "2026-08-13T08:05:09.109Z",
+  "N": 11,
+  "participatingN": 11,
+  "corpus": [
+    "apple-agentic-ai-pm.md",
+    "apple-ai-pm-ops.md",
+    "baidu-databuilder-pm.md",
+    "baidu-llm-app-pm.md",
+    "bytedance-llm-platform-pm.md",
+    "china-mobile-llm-pm.md",
+    "jd-algo-pm.md",
+    "meituan-friday-pm.md",
+    "shlab-ai-pm.md",
+    "tencent-ai-game-pm.md",
+    "tencent-wegame-ai-pm.md"
+  ],
+  "fetchedDates": [
+    "2026-08-06"
+  ],
+  "verifiedClaims": [
+    "apple-ai-pm-ops.md 岗位职责包含 Claude Code/Codex/Cursor 原型要求（硬性）",
+    "apple-ai-pm-ops.md 加分项包含 agentic workflows / AI agent orchestration"
+  ],
+  "categories": {
+    "大模型技术理解": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "apple-ai-pm-ops.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ],
+      "softJDs": [
+        "apple-agentic-ai-pm.md",
+        "baidu-databuilder-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ]
+    },
+    "项目管理与协作": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "apple-ai-pm-ops.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ],
+      "softJDs": [
+        "bytedance-llm-platform-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md"
+      ]
+    },
+    "数据驱动能力": {
+      "hardJDs": [
+        "apple-ai-pm-ops.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md"
+      ],
+      "softJDs": [
+        "apple-ai-pm-ops.md",
+        "shlab-ai-pm.md"
+      ]
+    },
+    "需求与用户研究": {
+      "hardJDs": [
+        "apple-ai-pm-ops.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md",
+        "tencent-ai-game-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ],
+      "softJDs": [
+        "shlab-ai-pm.md"
+      ]
+    },
+    "Agent 与智能体": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ],
+      "softJDs": [
+        "apple-agentic-ai-pm.md",
+        "apple-ai-pm-ops.md",
+        "tencent-wegame-ai-pm.md"
+      ]
+    },
+    "产品设计能力": {
+      "hardJDs": [
+        "apple-ai-pm-ops.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md",
+        "tencent-ai-game-pm.md"
+      ],
+      "softJDs": [
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md"
+      ]
+    },
+    "评估与评测": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "jd-algo-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md"
+      ],
+      "softJDs": [
+        "apple-agentic-ai-pm.md",
+        "shlab-ai-pm.md"
+      ]
+    },
+    "软素质": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "apple-ai-pm-ops.md",
+        "baidu-llm-app-pm.md",
+        "meituan-friday-pm.md",
+        "shlab-ai-pm.md",
+        "tencent-ai-game-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ],
+      "softJDs": [
+        "tencent-ai-game-pm.md"
+      ]
+    },
+    "Prompt 与模型调优": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "china-mobile-llm-pm.md",
+        "tencent-ai-game-pm.md",
+        "tencent-wegame-ai-pm.md"
+      ],
+      "softJDs": [
+        "apple-agentic-ai-pm.md",
+        "tencent-ai-game-pm.md"
+      ]
+    },
+    "RAG 与知识库": {
+      "hardJDs": [
+        "apple-agentic-ai-pm.md",
+        "baidu-databuilder-pm.md",
+        "baidu-llm-app-pm.md",
+        "bytedance-llm-platform-pm.md",
+        "china-mobile-llm-pm.md",
+        "shlab-ai-pm.md"
+      ],
+      "softJDs": [
+        "bytedance-llm-platform-pm.md"
+      ]
+    },
+    "动手与工具链": {
+      "hardJDs": [
+        "apple-ai-pm-ops.md",
+        "jd-algo-pm.md",
+        "meituan-friday-pm.md"
+      ],
+      "softJDs": [
+        "apple-ai-pm-ops.md"
+      ]
+    }
+  }
+}

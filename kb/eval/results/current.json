@@ -1,0 +1,3014 @@
+{
+  "config": {
+    "top_k": 5,
+    "reject_score": 0.05,
+    "boilerplate_filter": "README sources + 原始来源/收录/目录类 heading",
+    "corpus_fingerprint": "d44eec111a5f7e20"
+  },
+  "metrics": {
+    "recall5": 1,
+    "recall5_denominator": 40,
+    "recall5_hits": 40,
+    "mrr": 0.93,
+    "precision1": 0.875,
+    "precision1_hits": 35,
+    "citation_accuracy": 1,
+    "citation_denominator": 40,
+    "citation_ok": 40,
+    "reject_rate": 0.8,
+    "reject_denominator": 10,
+    "reject_ok": 8
+  },
+  "notes": {
+    "answerable_saturation": "40 道可答题目全在 top-1 命中（Recall@5=MRR=P@1=1.0）。原因是语料小（11 份岗位，44 chunk）且 token 特征鲜明，TF-IDF 精确命中；饱和是「锚定验证 + token 精确匹配」的结构性结果，判别轴在无关拒绝率（0.80，两个近失配失败）。未来对比更好的检索器时，需补充语义/近义改写类难题（语料增长后），否则 answerable 轴无法体现改进。",
+    "no_answer_definition": "no_answer 的 source_hit 字段表示「正确拒绝」（验收命令按 !source_hit 找失败题）：返回空或 top1<阈值。语义纯净的答对布尔字段是 correct。na09/na10 为近失配题（查询与词表部分重叠但语义超纲），未拒绝即记失败（查询歧义）。",
+    "reject_threshold_margin": "na09/na10 过滤后 top1 分数（见 per_question）约为阈值 0.05 的 2 倍余量；语料变动后重跑需人工复核是否翻边（某题可能被推到阈值另一侧翻转拒绝决策）。",
+    "corpus_fingerprint_note": "corpus_fingerprint 为参与索引的岗位语料 kb/jobs/*.md（路径+内容）的 sha1 前 16 位。若未来重跑得到的指纹与基线不一致，说明语料已漂移，基线不再对应可复现语料，需重新生成基线。"
+  },
+  "per_question": [
+    {
+      "id": "em01",
+      "category": "exact_match",
+      "query": "Apple Agentic AI Product Manager 岗位要求",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "原始来源",
+          "score": 0.4961
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "原始来源",
+          "score": 0.3483
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3262
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "岗位职责",
+          "score": 0.2279
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1063
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3262
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "岗位职责",
+          "score": 0.2279
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1063
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.0878
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "任职要求",
+          "score": 0.0451
+        }
+      ]
+    },
+    {
+      "id": "em02",
+      "category": "exact_match",
+      "query": "Apple AI 产品经理 运营 供应链",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 2,
+      "p1": 0,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "原始来源",
+          "score": 0.2695
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "原始来源",
+          "score": 0.2527
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.2037
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "岗位职责",
+          "score": 0.1634
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0882
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.2037
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "岗位职责",
+          "score": 0.1634
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0882
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0707
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0703
+        }
+      ]
+    },
+    {
+      "id": "em03",
+      "category": "exact_match",
+      "query": "京东 算法产品经理",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.4334
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "原始来源",
+          "score": 0.243
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.108
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1012
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.0772
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.4334
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.108
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1012
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.0772
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0669
+        }
+      ]
+    },
+    {
+      "id": "em04",
+      "category": "exact_match",
+      "query": "百度 DataBuilder 数据准备",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.5688
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "原始来源",
+          "score": 0.1513
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "原始来源",
+          "score": 0.135
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.1329
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.122
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.5688
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.1329
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.122
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0845
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0544
+        }
+      ]
+    },
+    {
+      "id": "em05",
+      "category": "exact_match",
+      "query": "百度 大模型应用平台 昆仑芯",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "原始来源",
+          "score": 0.5335
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "原始来源",
+          "score": 0.384
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3053
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2126
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1336
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3053
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2126
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1336
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1008
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0826
+        }
+      ]
+    },
+    {
+      "id": "em06",
+      "category": "exact_match",
+      "query": "字节跳动 机器学习平台",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "原始来源",
+          "score": 0.4148
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3412
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.288
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.2329
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.1173
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3412
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.288
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.2329
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.1173
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0793
+        }
+      ]
+    },
+    {
+      "id": "em07",
+      "category": "exact_match",
+      "query": "中国移动 智能客服",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2788
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.2683
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "原始来源",
+          "score": 0.1863
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.0921
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0629
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2788
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.2683
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.0921
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0629
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0577
+        }
+      ]
+    },
+    {
+      "id": "em08",
+      "category": "exact_match",
+      "query": "美团 FRIDAY 大模型平台",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.5379
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "原始来源",
+          "score": 0.3598
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1102
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0681
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0673
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.5379
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1102
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0681
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0673
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.0633
+        }
+      ]
+    },
+    {
+      "id": "em09",
+      "category": "exact_match",
+      "query": "上海人工智能实验室 科学发现",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "原始来源",
+          "score": 0.3865
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3599
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0896
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0291
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.0229
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3599
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0896
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0291
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.0229
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "em10",
+      "category": "exact_match",
+      "query": "腾讯 AI生成游戏",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.517
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2832
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.2793
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "原始来源",
+          "score": 0.1624
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "原始来源",
+          "score": 0.1219
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.517
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2832
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.2793
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1162
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0944
+        }
+      ]
+    },
+    {
+      "id": "em11",
+      "category": "exact_match",
+      "query": "WeGame 游戏助手",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.5076
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.191
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1736
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.1287
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1022
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.5076
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.191
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1736
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.1287
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1022
+        }
+      ]
+    },
+    {
+      "id": "em12",
+      "category": "exact_match",
+      "query": "Tableau Power BI SQL",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "任职要求",
+          "score": 0.2884
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.06
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.0373
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0357
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "任职要求",
+          "score": 0.2884
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.06
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.0373
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0357
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "em13",
+      "category": "exact_match",
+      "query": "训练编排 实验管理 模型服务",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3065
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.1682
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0461
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "任职要求",
+          "score": 0.0354
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0348
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3065
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.1682
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0461
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "任职要求",
+          "score": 0.0354
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0348
+        }
+      ]
+    },
+    {
+      "id": "em14",
+      "category": "exact_match",
+      "query": "模型后训练 性能优化",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1918
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0567
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.05
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0441
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0372
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1918
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0567
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.05
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0441
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0372
+        }
+      ]
+    },
+    {
+      "id": "em15",
+      "category": "exact_match",
+      "query": "智能体 工作流 智能问答",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3272
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.2698
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1837
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0914
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.0677
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3272
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.2698
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1837
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0914
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.0677
+        }
+      ]
+    },
+    {
+      "id": "cn01",
+      "category": "concept",
+      "query": "Agent 智能体 多智能体",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2271
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1968
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.1244
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1032
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.0955
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2271
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1968
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.1244
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1032
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.0955
+        }
+      ]
+    },
+    {
+      "id": "cn02",
+      "category": "concept",
+      "query": "RAG 检索增强",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2029
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.0594
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.054
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0376
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0233
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2029
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.0594
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.054
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0376
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0233
+        }
+      ]
+    },
+    {
+      "id": "cn03",
+      "category": "concept",
+      "query": "提示词 Prompt 工程",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.2393
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1343
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0851
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0619
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0444
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.2393
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1343
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0851
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0619
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0444
+        }
+      ]
+    },
+    {
+      "id": "cn04",
+      "category": "concept",
+      "query": "评测集 验收标准 效果评估",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.344
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.2441
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0399
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0376
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.035
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.344
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.2441
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0399
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0376
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.035
+        }
+      ]
+    },
+    {
+      "id": "cn05",
+      "category": "concept",
+      "query": "多模态 视觉 NLP",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1452
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.0921
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0854
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0749
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0661
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1452
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.0921
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0854
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0749
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0661
+        }
+      ]
+    },
+    {
+      "id": "cn06",
+      "category": "concept",
+      "query": "AI 生成 内容创作",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.3133
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2723
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.196
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1595
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.065
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.3133
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2723
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.196
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1595
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.065
+        }
+      ]
+    },
+    {
+      "id": "cn07",
+      "category": "concept",
+      "query": "数据驱动 决策 指标",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 2,
+      "p1": 0,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.2639
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1643
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.1629
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.1395
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1275
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.2639
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1643
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.1629
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.1395
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1275
+        }
+      ]
+    },
+    {
+      "id": "cn08",
+      "category": "concept",
+      "query": "用户画像 用户需求 调研",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1171
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "加分项",
+          "score": 0.1116
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.106
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0517
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0467
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1171
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "加分项",
+          "score": 0.1116
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.106
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0517
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0467
+        }
+      ]
+    },
+    {
+      "id": "cn09",
+      "category": "concept",
+      "query": "跨部门 协作 推动 落地",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1648
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.1139
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0942
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.0878
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "加分项",
+          "score": 0.0843
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1648
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.1139
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0942
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.0878
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "加分项",
+          "score": 0.0843
+        }
+      ]
+    },
+    {
+      "id": "cn10",
+      "category": "concept",
+      "query": "原型 设计 Axure",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.2254
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1052
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0896
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0606
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0317
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.2254
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1052
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0896
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0606
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0317
+        }
+      ]
+    },
+    {
+      "id": "cn11",
+      "category": "concept",
+      "query": "AI 编程 工具 原型",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 5,
+      "p1": 0,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.2094
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.0855
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0818
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0615
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "任职要求",
+          "score": 0.0544
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.2094
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.0855
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0818
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0615
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "任职要求",
+          "score": 0.0544
+        }
+      ]
+    },
+    {
+      "id": "cn12",
+      "category": "concept",
+      "query": "模型 微调 训练 数据",
+      "difficulty": "hard",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.3371
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2584
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.157
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0941
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.0737
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.3371
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2584
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "加分项",
+          "score": 0.157
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0941
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "任职要求",
+          "score": 0.0737
+        }
+      ]
+    },
+    {
+      "id": "cn13",
+      "category": "concept",
+      "query": "游戏 玩家 体验",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3067
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1736
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1643
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.1188
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0807
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3067
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1736
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.1643
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.1188
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0807
+        }
+      ]
+    },
+    {
+      "id": "cn14",
+      "category": "concept",
+      "query": "商业化 策略 增长",
+      "difficulty": "hard",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.5589
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1227
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0373
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0266
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.5589
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1227
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0373
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0266
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "cn15",
+      "category": "concept",
+      "query": "工程化 上线 监控",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2396
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0763
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "加分项",
+          "score": 0
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2396
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0763
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0
+        },
+        {
+          "source": "jobs/apple-agentic-ai-pm.md",
+          "heading": "加分项",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "cd01",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 SQL",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1964
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.0906
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0539
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "任职要求",
+          "score": 0.0397
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "原始来源",
+          "score": 0.0271
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1964
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.0906
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0539
+        },
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "任职要求",
+          "score": 0.0397
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0118
+        }
+      ]
+    },
+    {
+      "id": "cd02",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 Agent 智能体经验",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1925
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1781
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1445
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.0937
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.0802
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1925
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.1781
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1445
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "加分项",
+          "score": 0.0937
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.0802
+        }
+      ]
+    },
+    {
+      "id": "cd03",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 RAG",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1553
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1412
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0982
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0777
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0609
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1553
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1412
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0982
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0777
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.0609
+        }
+      ]
+    },
+    {
+      "id": "cd04",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 数据分析",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 2,
+      "p1": 0,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1436
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0908
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.066
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.0451
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0445
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1436
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0908
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.066
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.0451
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0445
+        }
+      ]
+    },
+    {
+      "id": "cd05",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 游戏",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3548
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3116
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.2407
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.2071
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.1636
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3548
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "岗位职责",
+          "score": 0.3116
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.2407
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "任职要求",
+          "score": 0.2071
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.1636
+        }
+      ]
+    },
+    {
+      "id": "cd06",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 Python",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.1387
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1291
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0824
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "原始来源",
+          "score": 0.025
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "原始来源",
+          "score": 0.0192
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/apple-ai-pm-ops.md",
+          "heading": "加分项",
+          "score": 0.1387
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1291
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0824
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0108
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0099
+        }
+      ]
+    },
+    {
+      "id": "cd07",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 电商 物流",
+      "difficulty": "hard",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.4504
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0679
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0653
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "原始来源",
+          "score": 0.0262
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "原始来源",
+          "score": 0.0202
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "加分项",
+          "score": 0.4504
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0679
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0653
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0114
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0098
+        }
+      ]
+    },
+    {
+      "id": "cd08",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 大模型 平台",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1603
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1545
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1053
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1038
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0926
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1603
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "加分项",
+          "score": 0.1545
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1053
+        },
+        {
+          "source": "jobs/bytedance-llm-platform-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1038
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0926
+        }
+      ]
+    },
+    {
+      "id": "cd09",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 评测 评估",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 1,
+      "p1": 1,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.3478
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2716
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0493
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0433
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0408
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "加分项",
+          "score": 0.3478
+        },
+        {
+          "source": "jobs/shlab-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.2716
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0493
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0433
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0408
+        }
+      ]
+    },
+    {
+      "id": "cd10",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 产品设计工具",
+      "difficulty": "medium",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 2,
+      "p1": 0,
+      "citation_ok": true,
+      "rejected": null,
+      "auto_signal": null,
+      "failure_reason": null,
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1643
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0836
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.0739
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.0493
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0485
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "任职要求",
+          "score": 0.1643
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "任职要求",
+          "score": 0.0836
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "任职要求",
+          "score": 0.0739
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "加分项",
+          "score": 0.0493
+        },
+        {
+          "source": "jobs/tencent-ai-game-pm.md",
+          "heading": "任职要求",
+          "score": 0.0485
+        }
+      ]
+    },
+    {
+      "id": "na01",
+      "category": "no_answer",
+      "query": "天气预报",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na02",
+      "category": "no_answer",
+      "query": "加密货币行情",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na03",
+      "category": "no_answer",
+      "query": "火星探测",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na04",
+      "category": "no_answer",
+      "query": "奥运会金牌",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na05",
+      "category": "no_answer",
+      "query": "葡萄酒酿造",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na06",
+      "category": "no_answer",
+      "query": "二手车估价",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na07",
+      "category": "no_answer",
+      "query": "高血压饮食",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na08",
+      "category": "no_answer",
+      "query": "养老保险政策",
+      "difficulty": "easy",
+      "correct": true,
+      "source_hit": true,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": true,
+      "auto_signal": "rejected_empty",
+      "failure_reason": null,
+      "raw_top5": [],
+      "top5": []
+    },
+    {
+      "id": "na09",
+      "category": "no_answer",
+      "query": "产品经理年薪多少",
+      "difficulty": "hard",
+      "correct": false,
+      "source_hit": false,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": false,
+      "auto_signal": "near_miss_not_rejected",
+      "failure_reason": "查询歧义",
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1077
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0989
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0932
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0908
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0818
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1077
+        },
+        {
+          "source": "jobs/jd-algo-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0989
+        },
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0932
+        },
+        {
+          "source": "jobs/tencent-wegame-ai-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0908
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "任职要求",
+          "score": 0.0818
+        }
+      ]
+    },
+    {
+      "id": "na10",
+      "category": "no_answer",
+      "query": "大模型岗位薪资待遇",
+      "difficulty": "hard",
+      "correct": false,
+      "source_hit": false,
+      "recall_rank": 0,
+      "p1": 0,
+      "citation_ok": null,
+      "rejected": false,
+      "auto_signal": "near_miss_not_rejected",
+      "failure_reason": "查询歧义",
+      "raw_top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1188
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1178
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.1158
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.112
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0906
+        }
+      ],
+      "top5": [
+        {
+          "source": "jobs/baidu-llm-app-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1188
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "岗位职责",
+          "score": 0.1178
+        },
+        {
+          "source": "jobs/china-mobile-llm-pm.md",
+          "heading": "加分项",
+          "score": 0.1158
+        },
+        {
+          "source": "jobs/baidu-databuilder-pm.md",
+          "heading": "岗位职责",
+          "score": 0.112
+        },
+        {
+          "source": "jobs/meituan-friday-pm.md",
+          "heading": "岗位职责",
+          "score": 0.0906
+        }
+      ]
+    }
+  ]
+}
