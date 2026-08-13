@@ -4,7 +4,7 @@
 
 ## 目录
 
-- `jobs/` — 检索语料（**唯一检索语料**，11 份真实 AI 产品经理岗位 JD + `README.md` 说明模板）
+- `jobs/` — 检索语料（**唯一检索语料**，11 份 AI 产品经理公开招聘岗位快照 / 整理要点 + `README.md` 说明模板）
 - `lib/` — `indexer.mjs`（切块 + TF-IDF 索引）、`retriever.mjs`（余弦 Top-K）、`userdict.txt`（领域词典）
 - `eval/` — 检索评测集（50 题）+ 评测脚本 + `results/`（基线与最新结果）
 - `test/` — 15 条行为测试

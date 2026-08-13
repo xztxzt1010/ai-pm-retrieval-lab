@@ -5,7 +5,7 @@
 // 复用检索实验的 11 份岗位语料，回答「这些岗位最看重哪些能力」，作为检索实验的补充输出。
 // 项目主课题是检索与评测本身（见 reports/retrieval-evaluation.md），本报告不是主课题。
 //
-// 设计约束（延续原 gen_skills_report.js 的抽取式统计结论）：
+// 设计约束：
 //   - 抽取式（关键词匹配）而非 LLM 生成式，每个数字可回溯到 manifest 与 JD 原文
 //   - 统计「岗位职责 + 任职要求 + 加分项」小节；区分硬性要求 / 软性提及（含「优先/加分」）
 //   - 同语料重跑 md 字节级一致（不含时间戳）；manifest 记录 generatedAt 便于追溯
@@ -199,7 +199,7 @@ const tableRows = ranking.map((r, i) => `| ${i + 1} | ${r.name} | ${r.hardJDs.le
 
 const md = `# AI 产品经理核心能力分析（岗位语料派生分析）
 
-> 基于 ${N} 份真实 AI 产品经理公开招聘 JD（抓取日期：${fetchedDates.join(' / ') || '未知'}）的抽取式统计。
+> 基于 ${N} 份 AI 产品经理公开招聘岗位快照 / 整理要点（抓取日期：${fetchedDates.join(' / ') || '未知'}）的抽取式统计。
 > 本报告是 **AI PM Job Retrieval Lab** 检索实验的派生分析：复用同一份 11 份岗位语料（kb/jobs/*.md），
 > 主课题（检索与评测）见 reports/retrieval-evaluation.md。
 
