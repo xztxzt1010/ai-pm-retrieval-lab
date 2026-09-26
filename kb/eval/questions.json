@@ -1,0 +1,405 @@
+{
+  "_comment": "AI PM Job Retrieval Lab 检索评测集：50 题（exact_match=15/concept=15/cross_doc=10/no_answer=10），锚点全部限定 kb/jobs/ 下的 11 份岗位语料，经读文校准可答。no_answer 中 na09/na10 为近失配（查询与词表部分重叠但语义超纲），用于测判别力。",
+  "questions": [
+    {
+      "id": "em01",
+      "category": "exact_match",
+      "query": "Apple Agentic AI Product Manager 岗位要求",
+      "expected_sources": ["jobs/apple-agentic-ai-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em02",
+      "category": "exact_match",
+      "query": "Apple AI 产品经理 运营 供应链",
+      "expected_sources": ["jobs/apple-ai-pm-ops.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em03",
+      "category": "exact_match",
+      "query": "京东 算法产品经理",
+      "expected_sources": ["jobs/jd-algo-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em04",
+      "category": "exact_match",
+      "query": "百度 DataBuilder 数据准备",
+      "expected_sources": ["jobs/baidu-databuilder-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em05",
+      "category": "exact_match",
+      "query": "百度 大模型应用平台 昆仑芯",
+      "expected_sources": ["jobs/baidu-llm-app-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em06",
+      "category": "exact_match",
+      "query": "字节跳动 机器学习平台",
+      "expected_sources": ["jobs/bytedance-llm-platform-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em07",
+      "category": "exact_match",
+      "query": "中国移动 智能客服",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em08",
+      "category": "exact_match",
+      "query": "美团 FRIDAY 大模型平台",
+      "expected_sources": ["jobs/meituan-friday-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em09",
+      "category": "exact_match",
+      "query": "上海人工智能实验室 科学发现",
+      "expected_sources": ["jobs/shlab-ai-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em10",
+      "category": "exact_match",
+      "query": "腾讯 AI生成游戏",
+      "expected_sources": ["jobs/tencent-ai-game-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em11",
+      "category": "exact_match",
+      "query": "WeGame 游戏助手",
+      "expected_sources": ["jobs/tencent-wegame-ai-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "em12",
+      "category": "exact_match",
+      "query": "Tableau Power BI SQL",
+      "expected_sources": ["jobs/apple-ai-pm-ops.md"],
+      "expected_headings": ["任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "em13",
+      "category": "exact_match",
+      "query": "训练编排 实验管理 模型服务",
+      "expected_sources": ["jobs/bytedance-llm-platform-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "em14",
+      "category": "exact_match",
+      "query": "模型后训练 性能优化",
+      "expected_sources": ["jobs/meituan-friday-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "em15",
+      "category": "exact_match",
+      "query": "智能体 工作流 智能问答",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn01",
+      "category": "concept",
+      "query": "Agent 智能体 多智能体",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md", "jobs/baidu-llm-app-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn02",
+      "category": "concept",
+      "query": "RAG 检索增强",
+      "expected_sources": ["jobs/baidu-llm-app-pm.md", "jobs/apple-agentic-ai-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn03",
+      "category": "concept",
+      "query": "提示词 Prompt 工程",
+      "expected_sources": ["jobs/tencent-ai-game-pm.md", "jobs/china-mobile-llm-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求", "加分项"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn04",
+      "category": "concept",
+      "query": "评测集 验收标准 效果评估",
+      "expected_sources": ["jobs/shlab-ai-pm.md", "jobs/tencent-ai-game-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn05",
+      "category": "concept",
+      "query": "多模态 视觉 NLP",
+      "expected_sources": ["jobs/tencent-wegame-ai-pm.md", "jobs/jd-algo-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn06",
+      "category": "concept",
+      "query": "AI 生成 内容创作",
+      "expected_sources": ["jobs/tencent-ai-game-pm.md", "jobs/tencent-wegame-ai-pm.md"],
+      "expected_headings": ["岗位职责", "加分项"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn07",
+      "category": "concept",
+      "query": "数据驱动 决策 指标",
+      "expected_sources": ["jobs/jd-algo-pm.md", "jobs/baidu-llm-app-pm.md"],
+      "expected_headings": ["任职要求", "岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn08",
+      "category": "concept",
+      "query": "用户画像 用户需求 调研",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md", "jobs/tencent-ai-game-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn09",
+      "category": "concept",
+      "query": "跨部门 协作 推动 落地",
+      "expected_sources": ["jobs/tencent-wegame-ai-pm.md", "jobs/bytedance-llm-platform-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn10",
+      "category": "concept",
+      "query": "原型 设计 Axure",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md", "jobs/jd-algo-pm.md"],
+      "expected_headings": ["任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn11",
+      "category": "concept",
+      "query": "AI 编程 工具 原型",
+      "expected_sources": ["jobs/apple-ai-pm-ops.md", "jobs/meituan-friday-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn12",
+      "category": "concept",
+      "query": "模型 微调 训练 数据",
+      "expected_sources": ["jobs/baidu-databuilder-pm.md", "jobs/meituan-friday-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "cn13",
+      "category": "concept",
+      "query": "游戏 玩家 体验",
+      "expected_sources": ["jobs/tencent-ai-game-pm.md", "jobs/tencent-wegame-ai-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cn14",
+      "category": "concept",
+      "query": "商业化 策略 增长",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md", "jobs/jd-algo-pm.md"],
+      "expected_headings": ["加分项", "岗位职责"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "cn15",
+      "category": "concept",
+      "query": "工程化 上线 监控",
+      "expected_sources": ["jobs/shlab-ai-pm.md", "jobs/bytedance-llm-platform-pm.md"],
+      "expected_headings": ["岗位职责"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cd01",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 SQL",
+      "expected_sources": ["jobs/apple-ai-pm-ops.md", "jobs/jd-algo-pm.md", "jobs/baidu-llm-app-pm.md"],
+      "expected_headings": ["任职要求", "加分项"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cd02",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 Agent 智能体经验",
+      "expected_sources": ["jobs/china-mobile-llm-pm.md", "jobs/baidu-llm-app-pm.md", "jobs/shlab-ai-pm.md", "jobs/apple-agentic-ai-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cd03",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 RAG",
+      "expected_sources": ["jobs/baidu-llm-app-pm.md", "jobs/baidu-databuilder-pm.md", "jobs/apple-agentic-ai-pm.md", "jobs/bytedance-llm-platform-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求", "加分项"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cd04",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 数据分析",
+      "expected_sources": ["jobs/baidu-databuilder-pm.md", "jobs/jd-algo-pm.md", "jobs/tencent-ai-game-pm.md", "jobs/china-mobile-llm-pm.md"],
+      "expected_headings": ["任职要求"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "cd05",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 游戏",
+      "expected_sources": ["jobs/tencent-ai-game-pm.md", "jobs/tencent-wegame-ai-pm.md"],
+      "expected_headings": ["岗位职责", "加分项"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "cd06",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 Python",
+      "expected_sources": ["jobs/apple-ai-pm-ops.md", "jobs/jd-algo-pm.md"],
+      "expected_headings": ["任职要求", "加分项"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cd07",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 电商 物流",
+      "expected_sources": ["jobs/jd-algo-pm.md"],
+      "expected_headings": ["加分项"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "cd08",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 大模型 平台",
+      "expected_sources": ["jobs/bytedance-llm-platform-pm.md", "jobs/meituan-friday-pm.md", "jobs/baidu-llm-app-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "cd09",
+      "category": "cross_doc",
+      "query": "哪些岗位提到 评测 评估",
+      "expected_sources": ["jobs/shlab-ai-pm.md", "jobs/tencent-ai-game-pm.md", "jobs/bytedance-llm-platform-pm.md", "jobs/apple-agentic-ai-pm.md"],
+      "expected_headings": ["岗位职责", "任职要求", "加分项"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "cd10",
+      "category": "cross_doc",
+      "query": "哪些岗位要求 产品设计工具",
+      "expected_sources": ["jobs/jd-algo-pm.md", "jobs/china-mobile-llm-pm.md"],
+      "expected_headings": ["任职要求"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "na01",
+      "category": "no_answer",
+      "query": "天气预报",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na02",
+      "category": "no_answer",
+      "query": "加密货币行情",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na03",
+      "category": "no_answer",
+      "query": "火星探测",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na04",
+      "category": "no_answer",
+      "query": "奥运会金牌",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na05",
+      "category": "no_answer",
+      "query": "葡萄酒酿造",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na06",
+      "category": "no_answer",
+      "query": "二手车估价",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na07",
+      "category": "no_answer",
+      "query": "高血压饮食",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na08",
+      "category": "no_answer",
+      "query": "养老保险政策",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "na09",
+      "category": "no_answer",
+      "query": "产品经理年薪多少",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "hard"
+    },
+    {
+      "id": "na10",
+      "category": "no_answer",
+      "query": "大模型岗位薪资待遇",
+      "expected_sources": [],
+      "expected_headings": [],
+      "difficulty": "hard"
+    }
+  ]
+}

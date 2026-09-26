@@ -3,42 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PM 智能工作台 · AI 产品经理求职作品集</title>
-  <!-- 仅引入 Tailwind CSS CDN（Play 版，运行时编译）。离线时页面会失去样式，见 app.js 降级横幅。 -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:,">
+  <title>AI PM Job Retrieval Lab · AI 产品经理岗位知识检索实验</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="bg-gray-50 text-slate-900 antialiased">
-
-  <!-- Tailwind CDN 加载失败降级横幅（默认隐藏，仅当 tailwind 全局对象缺失时由 app.js 显示） -->
-  <div id="cdn-fallback" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm text-center" role="alert"></div>
 
   <!-- Hero：深色渐变着陆区 -->
   <header class="bg-gradient-to-br from-slate-900 to-slate-800 text-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-      <div class="flex items-center gap-4 mb-8">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-lg sm:text-xl shadow-lg shadow-indigo-900/40" aria-hidden="true">PM</div>
-        <div>
-          <h1 class="text-3xl sm:text-5xl font-bold tracking-tight">PM 智能工作台</h1>
-          <p class="mt-2 sm:mt-3 text-sm sm:text-base text-slate-300">AI 产品经理求职作品集 · 知识库检索 · Agent 工作流 · 多 AI 协作</p>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-lg sm:text-xl shadow-lg shadow-indigo-900/40" aria-hidden="true">AI</div>
+        <div class="min-w-0">
+          <h1 class="text-2xl sm:text-5xl font-bold tracking-tight leading-tight">AI PM Job Retrieval Lab</h1>
+          <p class="mt-2 sm:mt-3 text-sm sm:text-base text-slate-300">AI 产品经理岗位知识检索实验 · TF-IDF 词法基线 · 11 份公开岗位语料</p>
         </div>
       </div>
       <div class="flex flex-wrap gap-2">
-        <span class="px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-200 text-xs font-medium">TF-IDF 知识库检索</span>
-        <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-200 text-xs font-medium">三审查 Agent 工作流</span>
-        <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-200 text-xs font-medium">多 AI 协作流水线</span>
+        <span class="px-3 py-1 rounded-full bg-indigo-500/15 text-indigo-200 text-xs font-medium">TF-IDF 词法基线</span>
+        <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-200 text-xs font-medium">11 份公开岗位语料</span>
+        <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-200 text-xs font-medium">非向量 RAG</span>
+        <span class="px-3 py-1 rounded-full bg-sky-500/15 text-sky-200 text-xs font-medium">来源与标题可追溯</span>
       </div>
     </div>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 space-y-16">
 
-    <!-- ① 知识库实时检索 -->
+    <!-- ① 岗位知识实时检索 -->
     <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
-      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">🔍</span> 知识库检索</h2>
-      <p class="text-sm text-slate-500 mt-1 mb-6">对 15 个 Markdown 语料文件（含 11 份真实 AI 产品经理 JD）实时做 TF-IDF 检索：jieba 中文分词 + 余弦相似度，返回最相关片段与来源</p>
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">🔍</span> 岗位知识检索</h2>
+      <p class="text-sm text-slate-500 mt-1 mb-6">对 11 份 AI 产品经理公开招聘岗位快照 / 整理要点（kb/jobs/*.md）实时做 TF-IDF 检索：jieba 中文分词 + 余弦相似度，返回 Top-K 片段，每条可追溯到来源文件与原标题</p>
       <div class="flex flex-col sm:flex-row gap-3">
-        <input id="search-input" type="text" placeholder="输入关键词，如「产品经理」「RAG 知识库」…" autocomplete="off"
-          class="flex-1 px-4 py-3 rounded-xl border border-slate-300 bg-gray-50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition" />
+        <input id="search-input" type="text" placeholder="输入关键词，如「RAG 检索增强」「Agent 智能体」…" autocomplete="off"
+          class="flex-1 min-w-0 px-4 py-3 rounded-xl border border-slate-300 bg-gray-50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition" />
         <button id="search-btn" type="button"
           class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 active:scale-95 transition whitespace-nowrap">搜索</button>
       </div>
@@ -46,10 +44,17 @@
       <div id="results" class="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- ② AI 产品经理核心能力 -->
+    <!-- ② 语料统计 + 评测摘要 -->
     <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
-      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">📊</span> AI 产品经理核心能力</h2>
-      <p class="text-sm text-slate-500 mt-1 mb-6">基于 11 份真实 AI 产品经理公开招聘 JD 的抽取式统计 · 硬性要求出现率</p>
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">📈</span> 语料统计与评测摘要</h2>
+      <div id="corpus-stats" class="mt-1 mb-6"></div>
+      <div id="eval-summary"></div>
+    </section>
+
+    <!-- ③ 能力分析摘要（派生分析，数据来自 reports/capability-analysis.manifest.json） -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">📊</span> 能力分析摘要</h2>
+      <p class="text-sm text-slate-500 mt-1 mb-6">基于 11 份岗位语料的抽取式统计 · 硬性要求出现率（派生分析，详见 reports/capability-analysis.md）</p>
       <!-- 深色图表容器 + 全局渐变定义（前 2 名金色，其余靛蓝）。渐变需真实渲染，故 absolute w-0 h-0，非 display:none -->
       <div class="bg-slate-800 rounded-2xl p-5 sm:p-8 relative overflow-hidden">
         <svg class="absolute w-0 h-0 overflow-hidden" aria-hidden="true">
@@ -66,165 +71,34 @@
       </div>
     </section>
 
-    <!-- ③ Agent 工作流（时间线：桌面横向 / 移动端纵向，单份 DOM） -->
+    <!-- ④ 技术边界与 Roadmap -->
     <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
-      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">🤖</span> Agent 工作流</h2>
-      <p class="text-sm text-slate-500 mt-1 mb-8">三审查工作流 · 六个 Agent 角色支撑产品研发的每一步</p>
-      <div class="relative">
-        <!-- 时间线连线：桌面为横向贯穿节点，移动端为纵向贯穿节点 -->
-        <div class="hidden lg:block absolute top-4 left-5 right-5 h-0.5 bg-slate-200" aria-hidden="true"></div>
-        <div class="lg:hidden absolute top-4 bottom-4 left-4 w-0.5 bg-slate-200" aria-hidden="true"></div>
-        <ol class="relative grid grid-cols-1 lg:grid-cols-6 gap-6 lg:gap-3">
-
-          <li class="relative flex gap-4 lg:flex-col lg:items-center lg:gap-3 lg:text-center">
-            <div class="relative z-10 shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shadow" aria-hidden="true">1</div>
-            <div class="flex-1 lg:flex-none lg:w-full bg-white border border-slate-200 rounded-xl p-4 transition hover:scale-105 hover:shadow-lg">
-              <div class="font-mono text-xs font-bold text-indigo-600 break-words">premise-overturner</div>
-              <div class="text-xs text-slate-500 mt-0.5">前提审查 · 方向</div>
-              <p class="text-sm text-slate-700 mt-2 leading-relaxed">是不是非做不可？有没有更小、更稳、更直接的路线？</p>
-              <details class="group mt-2">
-                <summary class="text-xs text-indigo-600 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">详细说明</summary>
-                <div class="max-h-0 overflow-hidden transition-all duration-300 group-open:max-h-48">
-                  <p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 mt-2 text-left leading-relaxed">出场：实现前 · 判定：PROCEED / RECONSIDER_DIRECTION / DO_NOT_BUILD_YET</p>
-                </div>
-              </details>
-            </div>
-          </li>
-
-          <li class="relative flex gap-4 lg:flex-col lg:items-center lg:gap-3 lg:text-center">
-            <div class="relative z-10 shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shadow" aria-hidden="true">2</div>
-            <div class="flex-1 lg:flex-none lg:w-full bg-white border border-slate-200 rounded-xl p-4 transition hover:scale-105 hover:shadow-lg">
-              <div class="font-mono text-xs font-bold text-indigo-600 break-words">assumption-challenger</div>
-              <div class="text-xs text-slate-500 mt-0.5">假设审查 · 失败路径</div>
-              <p class="text-sm text-slate-700 mt-2 leading-relaxed">哪里默认了「没问题」？输入、环境、异常、验证假设逐一暴露。</p>
-              <details class="group mt-2">
-                <summary class="text-xs text-indigo-600 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">详细说明</summary>
-                <div class="max-h-0 overflow-hidden transition-all duration-300 group-open:max-h-48">
-                  <p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 mt-2 text-left leading-relaxed">出场：实现前 + 最终 diff 后 · 判定：LOW / MEDIUM / HIGH_RISK</p>
-                </div>
-              </details>
-            </div>
-          </li>
-
-          <li class="relative flex gap-4 lg:flex-col lg:items-center lg:gap-3 lg:text-center">
-            <div class="relative z-10 shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shadow" aria-hidden="true">3</div>
-            <div class="flex-1 lg:flex-none lg:w-full bg-white border border-slate-200 rounded-xl p-4 transition hover:scale-105 hover:shadow-lg">
-              <div class="font-mono text-xs font-bold text-indigo-600 break-words">range-creep-guardian</div>
-              <div class="text-xs text-slate-500 mt-0.5">范围审查 · 越界拦截</div>
-              <p class="text-sm text-slate-700 mt-2 leading-relaxed">有没有做多了？每一处改动都应能追溯到用户需求。</p>
-              <details class="group mt-2">
-                <summary class="text-xs text-indigo-600 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">详细说明</summary>
-                <div class="max-h-0 overflow-hidden transition-all duration-300 group-open:max-h-48">
-                  <p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 mt-2 text-left leading-relaxed">出场：实现后 · 判定：IN_SCOPE / MOSTLY_IN_SCOPE / RANGE_CREEP_DETECTED</p>
-                </div>
-              </details>
-            </div>
-          </li>
-
-          <li class="relative flex gap-4 lg:flex-col lg:items-center lg:gap-3 lg:text-center">
-            <div class="relative z-10 shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shadow" aria-hidden="true">4</div>
-            <div class="flex-1 lg:flex-none lg:w-full bg-white border border-slate-200 rounded-xl p-4 transition hover:scale-105 hover:shadow-lg">
-              <div class="font-mono text-xs font-bold text-indigo-600 break-words">test-designer</div>
-              <div class="text-xs text-slate-500 mt-0.5">测试设计 · 验证</div>
-              <p class="text-sm text-slate-700 mt-2 leading-relaxed">怎么证明做对了？设计测试清单与最小验证命令。</p>
-              <details class="group mt-2">
-                <summary class="text-xs text-indigo-600 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">详细说明</summary>
-                <div class="max-h-0 overflow-hidden transition-all duration-300 group-open:max-h-48">
-                  <p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 mt-2 text-left leading-relaxed">出场：复杂任务 · 输出：测试清单 + 最小验证命令</p>
-                </div>
-              </details>
-            </div>
-          </li>
-
-          <li class="relative flex gap-4 lg:flex-col lg:items-center lg:gap-3 lg:text-center">
-            <div class="relative z-10 shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shadow" aria-hidden="true">5</div>
-            <div class="flex-1 lg:flex-none lg:w-full bg-white border border-slate-200 rounded-xl p-4 transition hover:scale-105 hover:shadow-lg">
-              <div class="font-mono text-xs font-bold text-indigo-600 break-words">metric-gate</div>
-              <div class="text-xs text-slate-500 mt-0.5">指标守门 · 证据</div>
-              <p class="text-sm text-slate-700 mt-2 leading-relaxed">指标呢？只认可观测指标与基线对照，不认「优化了」。</p>
-              <details class="group mt-2">
-                <summary class="text-xs text-indigo-600 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">详细说明</summary>
-                <div class="max-h-0 overflow-hidden transition-all duration-300 group-open:max-h-48">
-                  <p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 mt-2 text-left leading-relaxed">出场：优化 / 稳定性任务 · 输出：指标 + 采集方法 + 基线对照</p>
-                </div>
-              </details>
-            </div>
-          </li>
-
-          <li class="relative flex gap-4 lg:flex-col lg:items-center lg:gap-3 lg:text-center">
-            <div class="relative z-10 shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shadow" aria-hidden="true">6</div>
-            <div class="flex-1 lg:flex-none lg:w-full bg-white border border-slate-200 rounded-xl p-4 transition hover:scale-105 hover:shadow-lg">
-              <div class="font-mono text-xs font-bold text-indigo-600 break-words">rollback-planner</div>
-              <div class="text-xs text-slate-500 mt-0.5">回滚规划 · 恢复</div>
-              <p class="text-sm text-slate-700 mt-2 leading-relaxed">改坏了怎么恢复？给出回滚步骤、备份点与停止条件。</p>
-              <details class="group mt-2">
-                <summary class="text-xs text-indigo-600 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">详细说明</summary>
-                <div class="max-h-0 overflow-hidden transition-all duration-300 group-open:max-h-48">
-                  <p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 mt-2 text-left leading-relaxed">出场：高风险变更 · 输出：回滚步骤 + 备份点 + 停止条件</p>
-                </div>
-              </details>
-            </div>
-          </li>
-
-        </ol>
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">🧭</span> 技术边界与 Roadmap</h2>
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <h3 class="text-sm font-bold text-slate-900 mb-2">当前实现（词法基线）</h3>
+          <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+            <li>· 语料：11 份公开 AI 产品经理岗位 Markdown（kb/jobs/），含来源 URL 与抓取日期</li>
+            <li>· 切块：按 <code class="font-mono">##</code> 标题切块，前言并入首节</li>
+            <li>· 检索：jieba 中文分词 + TF-IDF 稀疏向量 + 余弦相似度，Top-K</li>
+            <li>· 结果：来源文件 + 原标题 + 命中片段 + 相关度分数</li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <h3 class="text-sm font-bold text-slate-900 mb-2">为什么不是向量 RAG</h3>
+          <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+            <li>· 本实验刻意以 TF-IDF 词法检索做基线：可复现、零外部服务、每个数字可核查</li>
+            <li>· 语义召回（同义词/近义改写）不在当前能力范围，评测里的近失配题即此边界</li>
+            <li>· Roadmap：文档向量化（embedding + 向量库）→ 混合检索 → 用同一评测集对比召回提升</li>
+          </ul>
+        </div>
       </div>
-    </section>
-
-    <!-- ④ 多 AI 协作 -->
-    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
-      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><span aria-hidden="true">🧠</span> 多 AI 协作</h2>
-      <p class="text-sm text-slate-500 mt-1 mb-8">三个 AI 工具各司其职 · 从规划到编码到审查的完整流水线</p>
-      <div class="flex flex-col lg:flex-row items-center gap-4">
-
-        <!-- Qwen：indigo 主题 -->
-        <div class="w-full lg:flex-1 rounded-2xl border-2 border-indigo-100 bg-indigo-50/50 p-6 hover:shadow-xl transition">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg" aria-hidden="true">Q</div>
-            <div>
-              <div class="font-bold text-slate-900">Qwen</div>
-              <div class="inline-block text-xs font-semibold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded-full mt-1">规划与验收</div>
-            </div>
-          </div>
-          <p class="text-sm text-slate-600 leading-relaxed">编写 plan.md 与 acceptance.md，定义问题、拆解任务、锁定验收标准，并在最后逐条审查。</p>
-        </div>
-
-        <!-- 流程箭头（移动端旋转 90° 向下） -->
-        <svg class="shrink-0 w-6 h-6 text-slate-300 rotate-90 lg:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-
-        <!-- DeepSeek：emerald 主题 -->
-        <div class="w-full lg:flex-1 rounded-2xl border-2 border-emerald-100 bg-emerald-50/50 p-6 hover:shadow-xl transition">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg" aria-hidden="true">D</div>
-            <div>
-              <div class="font-bold text-slate-900">DeepSeek</div>
-              <div class="inline-block text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full mt-1">编码主力</div>
-            </div>
-          </div>
-          <p class="text-sm text-slate-600 leading-relaxed">按 plan.md 的 Task 顺序实现，每完成一个 Task 运行验证命令并填写 report.md。</p>
-        </div>
-
-        <svg class="shrink-0 w-6 h-6 text-slate-300 rotate-90 lg:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-
-        <!-- Codex：amber 主题 -->
-        <div class="w-full lg:flex-1 rounded-2xl border-2 border-amber-100 bg-amber-50/50 p-6 hover:shadow-xl transition">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg" aria-hidden="true">C</div>
-            <div>
-              <div class="font-bold text-slate-900">Codex</div>
-              <div class="inline-block text-xs font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full mt-1">审查验收</div>
-            </div>
-          </div>
-          <p class="text-sm text-slate-600 leading-relaxed">逐条对照 acceptance.md 运行验证命令，给出 PASS / PASS_WITH_NOTES / FAIL 结论。</p>
-        </div>
-
-      </div>
-      <div id="task-progress" class="mt-8"></div>
     </section>
 
   </main>
 
   <footer class="bg-slate-900 text-slate-400 text-center py-8 text-xs sm:text-sm">
-    PM 智能工作台 · TF-IDF 知识库检索 + Agent 工作流 + 多 AI 协作 · 作品集演示
+    AI PM Job Retrieval Lab · TF-IDF 岗位知识检索实验 · 作品集演示
   </footer>
 
   <script src="app.js"></script>

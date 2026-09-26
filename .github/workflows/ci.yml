@@ -1,0 +1,61 @@
+# CI — install, syntax check, test, eval reproducibility, audit
+# 无 PAT / Secret / 写权限 / 部署权限；第三方 Action 锁定完整 commit SHA。
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # 覆盖 README 声明的最低版本 20 与当前版本 24
+        node-version: ['20', '24']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies (locked)
+        run: npm ci
+
+      - name: Build Tailwind CSS
+        run: npm run build:css
+
+      - name: styles.css reproducible
+        run: git diff --exit-code -- showcase/styles.css
+
+      - name: Syntax check showcase/app.js
+        run: node --check showcase/app.js
+
+      - name: Syntax check showcase/server.mjs
+        run: node --check showcase/server.mjs
+
+      - name: Behavior tests
+        run: npm test
+
+      - name: Retrieval evaluation
+        run: npm run eval
+
+      - name: Eval results reproducible
+        run: git diff --exit-code -- kb/eval/results/current.json
+
+      - name: Dependency audit (high+, includes devDependencies, Node 24)
+        if: matrix.node-version == '24'
+        run: npm audit --audit-level=high --registry=https://registry.npmjs.org

@@ -1,102 +1,123 @@
-# PM RAG Agent
+# AI PM Job Retrieval Lab · AI 产品经理岗位知识检索实验
 
-面向 AI 产品经理求职作品集的本地实验项目。它记录了从工作流设计、知识库检索基线，到产品经理工作台 MVP 的完整演进过程。
+一个**单一主旨、可复现**的岗位知识检索实验：以 11 份 AI 产品经理**公开招聘岗位快照 / 整理要点**为语料，实现 **TF-IDF 词法检索基线**（jieba 中文分词 + 余弦相似度 + Top-K），并用 **50 题可复现评测集**给出可核查的检索质量指标。当前是**检索与评测基线**，不是向量 RAG。
 
-> 当前状态：本地可运行的 MVP。**检索层是 TF-IDF 中文知识库检索 baseline**（jieba 中文分词 + 余弦相似度），**不是 embedding / 向量 RAG**，未接入向量库或 reranker。未来升级路径：BM25 + 本地 embedding 的混合检索 → 带来源引用的回答生成。Agent 工作流的核心 skills/agents 仍有一部分位于作者本机配置中，公开可复现版本正在整理。
+## 为什么做
 
-## 三个项目板块
+转行 AI 产品经理岗位时，面临两个实际问题：
 
-### 1. Agent 审查工作流
+1. **岗位信息分散**：11 份公开 JD 散落在各招聘渠道，无法按「RAG / Agent / SQL / 评测」等能力维度快速检索对比。
+2. **检索质量不可信**：多数演示只给「看起来相关」的结果，没有可复现的指标。本实验把检索做成**可运行、可测试、可评测**的工程：任何查询结果都能追溯到来源文件与原标题。
 
-通过前提、假设、范围、测试、指标和回滚六类检查，约束 AI 辅助开发中的方向偏差、隐含假设和范围蔓延。
+## 当前实现
 
-- 设计说明：[`AGENT_WORKFLOW.md`](AGENT_WORKFLOW.md)
-- 多 AI 文件协作：[`ai-workspace/workflow.md`](ai-workspace/workflow.md)
-- 任务记录：[`ai-workspace/plans/`](ai-workspace/plans/)
+| 模块 | 说明 |
+| --- | --- |
+| 语料 | 11 份公开 AI 产品经理岗位 Markdown（`kb/jobs/*.md`），含公司 / 岗位 / 城市 / 来源 URL / 抓取日期 |
+| 切块 | 按 `##` 标题切块，前言（frontmatter）并入第一个小节 |
+| 分词 | `@node-rs/jieba` 中文分词 + 领域用户词典（产品经理 / 大模型 / 需求分析 等） |
+| 检索 | TF-IDF 稀疏向量 + 余弦相似度，Top-K；大小写不敏感，分数有限不产生 NaN |
+| 结果 | 来源文件 + 原标题 + 命中片段 + 相关度分数，全部可追溯 |
+| 测试 | 15 条行为测试（`kb/test/search.test.mjs`），含语料边界、空语料、全 OOV、topK 边界 |
+| 评测 | 50 题评测集（`kb/eval/questions.json`），五指标输出到 `kb/eval/results/` |
 
-这部分当前主要证明方法设计与过程记录。下一阶段是将可分发的 skills/agents、安装说明和对照评测纳入仓库。
+## 环境要求
 
-### 2. 本地知识库检索
+- Node.js 20+
+- npm（随 Node.js 安装）
 
-`kb/` 是独立 Git 子模块（检索引擎 + 语料 + 评测基准），已实现：
+## 快速开始
 
-- Markdown 递归扫描与按标题切块
-- jieba 中文分词与领域词典
-- TF-IDF 稀疏向量与余弦相似度
-- Top-K CLI 检索与来源标注
-- 中文、英文、无关查询及边界测试
-
-**为什么用 Git 子模块？** 检索核心（`kb/`）是独立的可复用仓库，可以单独演进、单独共享；主仓库负责作品集叙事与过程记录。若把 kb 的内容直接复制进主仓库会破坏"引擎独立、可单独交付"的边界。
-
-**两个仓库当前均为 PRIVATE（私有）。** 分享本作品集时，需要对 `pm-rag-agent` 与 `pm-rag-kb` **两个仓库都授予访问权限**，否则 `git clone --recurse-submodules` 拉取 `kb/` 子模块会失败。以下命令对已获授权的读者有效：
-
-```powershell
-git clone --recurse-submodules https://github.com/xztxzt1010/pm-rag-agent.git
-cd pm-rag-agent\kb
-npm install
-npm test
-node search.mjs "RAG 知识库" --top 5 --verbose
+```bash
+npm ci               # 按 package-lock.json 锁定安装，保证依赖可复现（唯一运行时依赖 @node-rs/jieba）
+npm test             # 15 条行为测试
+npm run eval         # 重跑评测，写 current.json（基线快照保护：覆盖 baseline 需 --force）
+npm run demo         # 启动展示页 http://localhost:3000
+node kb/search.mjs "RAG 检索增强" --top 5   # CLI 检索
 ```
 
-### 3. 产品经理工作台
+## 示例查询
 
-`showcase/` 提供一个零新增依赖的本地展示应用，包括：
+```bash
+node kb/search.mjs "京东 算法产品经理" --top 3
+# [jobs/jd-algo-pm.md | 岗位职责]
+# - 负责智能算法类产品的需求挖掘、算法预研、产品规划设计与迭代...
 
-- 知识库实时检索
-- AI 产品经理能力分析图表
-- 六角色 Agent 工作流展示
-- Qwen / DeepSeek / Codex 协作进度
+node kb/search.mjs "Agentic AI Product Manager" --top 2
+# [jobs/apple-agentic-ai-pm.md | 原始来源]
+# [jobs/apple-agentic-ai-pm.md | 岗位职责]
+# （按实际相关度顺序返回；分数随语料/评测版本变动，以 CLI 输出为准）
 
-```powershell
-cd pm-rag-agent
-npm install --prefix kb
-node showcase/server.mjs
+node kb/search.mjs "哪些岗位要求 SQL" --top 5
+# baidu-llm-app-pm / apple-ai-pm-ops / jd-algo-pm 等（SQL 相关岗位）
+
+node kb/search.mjs "天气预报"
+# 未找到相关内容（无关查询被正确拒绝）
 ```
 
-浏览器打开 [http://localhost:3000](http://localhost:3000)。
+## 评测
 
-## 架构
+评测集 50 题，四类（`kb/eval/questions.json`）：
 
-```text
-浏览器工作台
-    │ /api/search
-    ▼
-Node.js 原生 HTTP 服务
-    │
-    ├── TF-IDF 检索器 ── Markdown 知识库
-    ├── 能力分析数据
-    └── ai-workspace 任务进度
+| 类别 | 数量 | 说明 |
+| --- | --- | --- |
+| exact_match | 15 | 精确锚点题（公司 + 岗位 / 工具 + 要求） |
+| concept | 15 | 概念题（Agent / RAG / Prompt / 数据驱动 等） |
+| cross_doc | 10 | 跨文档题（哪些岗位要求 SQL / Python / 大模型平台） |
+| no_answer | 10 | 无关题（天气预报 / 加密货币行情 等，含 2 条近失配） |
+
+当前基线（语料指纹 `d44eec111a5f7e20`，11 份语料 / 44 chunk）：
+
+| 指标 | 值 |
+| --- | --- |
+| Recall@5 | 1.000（40/40） |
+| MRR | 0.930 |
+| Precision@1 | 0.875（35/40） |
+| 引用正确率 | 1.000（40/40） |
+| 无关拒绝率 | 0.800（8/10） |
+
+结果 JSON 在 `kb/eval/results/baseline-tfidf.json`（基线）与 `current.json`（最新一次）。失败题与判定口径见 [reports/retrieval-evaluation.md](reports/retrieval-evaluation.md)。
+
+## 项目结构
+
+```
+.
+├── package.json              # 根包：test / eval / search / capability / demo / verify
+├── kb/
+│   ├── jobs/                 # 11 份岗位语料（唯一检索语料，含来源 URL）
+│   ├── lib/                  # indexer（切块 + TF-IDF）+ retriever（余弦 Top-K）
+│   ├── eval/                 # 评测集 + 评测脚本 + results/
+│   ├── test/                 # 15 条行为测试
+│   └── search.mjs            # CLI 检索入口
+├── scripts/
+│   └── generate-capability-report.js   # 能力分析派生报告生成器
+├── reports/
+│   ├── capability-analysis.md          # 能力分析报告（派生分析）
+│   └── retrieval-evaluation.md         # 检索评测报告
+└── showcase/                 # 展示页（纯原生 JS + Tailwind v4 本地编译 CSS，无前端框架）
 ```
 
-## 验证状态
+## 能力分析
 
-- 知识库：13 个行为与边界测试通过
-- 依赖：`npm audit --omit=dev --prefix kb` 为 0 个已知漏洞
-- 工作台：桌面与 375px 浏览器实测通过，无水平溢出、无控制台错误
-- 安全：静态文件白名单、输入长度限制、HTML 转义；未提交本地权限配置或凭据
+`reports/capability-analysis.md` 是检索实验的**派生分析**：对同一份 11 份岗位语料做抽取式统计（关键词匹配，非 LLM 生成），回答「这些岗位最看重哪些能力」。每个数字可回溯到 manifest（`reports/capability-analysis.manifest.json`）与 JD 原文。重新生成：
 
-详细证据见：
+```bash
+npm run capability
+```
 
-- [`001 检索审查`](ai-workspace/plans/001-kb-retrieval/review.md)
-- [`100 工作流受限审查`](ai-workspace/plans/100-six-role-drill/review.md)
-- [`200 工作台审查`](ai-workspace/plans/200-showcase-frontend/review.md)
+## 技术边界
 
-## 已知局限
-
-- 当前检索是词法 baseline，尚未加入 embedding、混合检索、reranker 和带引用回答生成。
-- GitHub Pages 不能运行本项目的 Node 搜索 API；在线预览需要支持 Node.js 的托管环境，或增加纯静态演示降级。
-- 能力图表数据目前来自一次离线报告，源数据更新后需要重新生成或同步。
-- 工作流尚缺少普通模式与三审查模式的量化对照实验。
-
-## 安全说明
-
-- 不要把 GitHub PAT、模型 API Key 或本地 `.env` 提交到仓库。
-- `.claude/settings.local.json` 属于本机权限配置，已通过 `.gitignore` 排除。
-- 发现凭据泄露时应立即撤销并重新生成最小权限、短有效期凭据。
+- **词法基线，非语义检索**：TF-IDF 只能做字面 token 匹配。同义改写、语义近似（如「提示词」与「Prompt」的不同写法）不在当前能力范围，评测里的 2 条近失配题（`na09/na10`）正是这一边界。
+- **语料固定**：检索只索引 `kb/jobs/*.md`（11 份）。`README.md`、隐藏文件、`node_modules`、评测/报告均不入语料（由测试 T8/T9 断言）。
+- **样板块过滤仅用于评测**：评测对「原始来源 / 收录原则」等元数据块做过滤后再算指标；CLI 与展示页返回的是原始 Top-K，可能包含来源块。
 
 ## Roadmap
 
-1. 发布可复现的 Agent workflow 包与固定评测集。
-2. 将检索升级为 BM25 + 本地 embedding + RRF/rerank 的混合方案。
-3. 增加带来源回答、PRD 生成、版本差异和人工确认闭环。
-4. 部署在线只读演示，并加入 CI、安全扫描和浏览器回归测试。
+- [ ] 文档向量化（embedding + 本地向量库）建立语义召回基线
+- [ ] 混合检索（BM25 + 向量 + RRF 融合）
+- [ ] 用同一份 50 题评测集对比各方案，新增语义/近义改写题
+- [ ] 语料扩增（更多岗位与方向），并同步更新指纹、基线、评测
+
+## License
+
+本仓库作者原创的代码与文档采用 [MIT](LICENSE)。`kb/jobs/` 中的岗位信息是基于公开招聘来源整理的最小必要摘录，仅用于研究、教学与求职分析；原始岗位文本及相关商标等权利归各自权利人所有，**不包含在 MIT 授权范围内**。每份语料保留来源 URL 与整理日期，如权利人要求移除请联系维护者。

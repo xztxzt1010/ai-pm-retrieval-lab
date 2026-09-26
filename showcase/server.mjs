@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-// server.mjs — PM 智能工作台展示后端（Node 原生 http，0 新依赖）
+// server.mjs — AI PM Job Retrieval Lab 展示后端（Node 原生 http，0 新依赖）
 //
 // 路由：
 //   GET /                 → showcase.html
 //   GET /app.js           → 前端逻辑
-//   GET /api/search?q=&top= → 知识库检索（复用 kb/lib 的 indexer + retriever）
-//   GET /api/stats        → 知识库统计 + 001 任务进度
+//   GET /api/search?q=&top= → 岗位知识检索（复用 kb/lib 的 indexer + retriever）
+//   GET /api/stats        → 语料统计 + 评测摘要 + 能力分析摘要（均来自仓库内固定 JSON，无动态写入）
 //
 // 说明：索引在启动时构建一次并缓存（只读），搜索请求内不重建。
 import http from 'node:http';
@@ -14,8 +14,14 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const SHOWCASE_DIR = path.dirname(fileURLToPath(import.meta.url));
-const KB_DIR = path.resolve(SHOWCASE_DIR, '../kb');
-const REPORT_001 = path.resolve(SHOWCASE_DIR, '../ai-workspace/plans/001-kb-retrieval/report.md');
+const ROOT = path.resolve(SHOWCASE_DIR, '..');
+const KB_DIR = path.join(ROOT, 'kb');
+
+// 只允许读取仓库内这些固定 JSON（路径穿越防护：不做任何基于用户输入的文件读取）
+const JSON_ASSETS = {
+  evaluation: path.join(ROOT, 'kb/eval/results/current.json'),
+  capability: path.join(ROOT, 'reports/capability-analysis.manifest.json'),
+};
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -25,6 +31,7 @@ const MIME = {
 const STATIC = {
   '/': 'showcase.html',
   '/app.js': 'app.js',
+  '/styles.css': 'styles.css',
 };
 
 let index = null;
@@ -34,15 +41,24 @@ let retrieveFn = null;
 /** 启动前置检查：kb 依赖必须存在，否则给可操作的中文报错。
  *  必须在 init() 内、动态 import(kb 模块) 之前调用——否则依赖缺失时顶层 import 会先抛原始英文 ESM 错误，中文修复指引永远跑不到。 */
 function preflight() {
-  if (!fs.existsSync(path.join(KB_DIR, 'node_modules/@node-rs/jieba'))) {
-    throw new Error('缺少 kb/node_modules（@node-rs/jieba）。请先在 kb/ 目录执行: npm install');
+  if (!fs.existsSync(path.join(ROOT, 'node_modules/@node-rs/jieba'))) {
+    throw new Error('缺少根目录 node_modules（@node-rs/jieba）。请先在仓库根目录执行: npm ci');
   }
   if (!fs.existsSync(path.join(KB_DIR, 'lib/userdict.txt'))) {
     throw new Error('缺少 kb/lib/userdict.txt，无法加载分词词典');
   }
 }
 
-/** 构建索引 + 统计（含 001 任务进度，剥离 HTML 注释防模板行污染计数）。
+/** 读取固定 JSON 资产；缺失时返回 null（页面优雅降级，不阻断检索）。 */
+function readAsset(name) {
+  try {
+    return JSON.parse(fs.readFileSync(JSON_ASSETS[name], 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+/** 构建索引 + 统计（含评测摘要与能力分析摘要，均来自固定 JSON，无动态写入）。
  *  顺序：preflight（中文报错优先）→ 加载 retriever → 加载 indexer。 */
 async function init() {
   preflight();
@@ -51,27 +67,30 @@ async function init() {
   const { buildIndex, tokenize } = await import(pathToFileURL(path.join(KB_DIR, 'lib/indexer.mjs')).href);
   index = buildIndex(KB_DIR);
 
-  let progress = { plan: '001-kb-retrieval', done: 0, total: 0, status: 'unknown' };
-  try {
-    const txt = fs.readFileSync(REPORT_001, 'utf8').replace(/<!--[\s\S]*?-->/g, '');
-    const lines = txt.split('\n');
-    const total = lines.filter((l) => /^### Task \d+/.test(l)).length;
-    const done = lines.filter((l) => /^\*\*状态\*\*\s*[:：]\s*✅/.test(l)).length;
-    progress = {
-      plan: '001-kb-retrieval',
-      total,
-      done,
-      status: total > 0 && done === total ? 'completed' : done > 0 ? 'in_progress' : 'unknown',
-    };
-  } catch {
-    /* 报告缺失时保持 unknown，页面仍渲染三 AI 分工 */
-  }
-
+  const evalRes = readAsset('evaluation');
+  const capRes = readAsset('capability');
   stats = {
-    files: index.fileCount,
+    corpusFiles: index.fileCount,
     chunks: index.chunks.length,
     vocabSize: index.vocab.size,
-    progress,
+    evaluation: evalRes
+      ? {
+          questions: (evalRes.metrics?.recall5_denominator || 0) + (evalRes.metrics?.reject_denominator || 0),
+          recall5: evalRes.metrics?.recall5 ?? null,
+          mrr: evalRes.metrics?.mrr ?? null,
+          precision1: evalRes.metrics?.precision1 ?? null,
+          citationAccuracy: evalRes.metrics?.citation_accuracy ?? null,
+          rejectRate: evalRes.metrics?.reject_rate ?? null,
+          corpusFingerprint: evalRes.config?.corpus_fingerprint ?? null,
+        }
+      : null,
+    capability: capRes
+      ? {
+          N: capRes.N ?? null,
+          categories: capRes.categories ?? null,
+          generatedAt: capRes.generatedAt ?? null,
+        }
+      : null,
   };
   return { tokenize };
 }
@@ -170,8 +189,12 @@ init()
     tokenizeFn = tokenize;
     server.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
-      console.log(`知识库: ${stats.files} 个文件 / ${stats.chunks} 个片段 / ${stats.vocabSize} 词`);
-      console.log(`001 任务进度: ${stats.progress.done}/${stats.progress.total} (${stats.progress.status})`);
+      console.log(`知识库: ${stats.corpusFiles} 个文件 / ${stats.chunks} 个片段 / ${stats.vocabSize} 词`);
+      if (stats.evaluation) {
+        console.log(`评测: ${stats.evaluation.questions} 题 · Recall@5=${stats.evaluation.recall5} · MRR=${stats.evaluation.mrr} · P@1=${stats.evaluation.precision1} · 引用=${stats.evaluation.citationAccuracy} · 拒绝=${stats.evaluation.rejectRate} · 指纹 ${stats.evaluation.corpusFingerprint}`);
+      } else {
+        console.log('评测: 未找到 current.json，页面将隐藏评测摘要');
+      }
     });
   })
   .catch((err) => {
