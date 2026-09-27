@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildIndex, tokenize } from '../lib/indexer.mjs';
+import { buildIndex, chunkMarkdown, tokenize } from '../lib/indexer.mjs';
 import { retrieve } from '../lib/retriever.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -25,6 +25,20 @@ function test(name, fn) {
     console.log(`❌ ${name} — ${e.message}`);
     failed++;
   }
+}
+
+/** 系统临时目录下的唯一目录；清理前校验解析路径仍位于 tmpdir 内。 */
+function makeTempDir(prefix) {
+  return fs.mkdtempSync(path.join(os.tmpdir(), prefix));
+}
+
+function safeRmTempDir(dir) {
+  const resolved = path.resolve(dir);
+  const tempRoot = path.resolve(os.tmpdir());
+  if (resolved === tempRoot || !resolved.startsWith(tempRoot + path.sep)) {
+    throw new Error(`拒绝删除非临时目录: ${resolved}`);
+  }
+  fs.rmSync(resolved, { recursive: true, force: true });
 }
 
 // 共享索引：一次构建，多次断言
@@ -95,13 +109,13 @@ test('T9: 实际语料来源数恰为 11 份岗位', () => {
 });
 
 test('T10: 空语料 buildIndex 不抛错（边界）', () => {
-  const emptyDir = fs.mkdtempSync(path.join(os.tmpdir(), 'kb-test-'));
+  const emptyDir = makeTempDir('kb-test-');
   try {
     const empty = buildIndex(emptyDir);
     assert.strictEqual(empty.chunks.length, 0);
     assert.strictEqual(empty.vectors.length, 0);
   } finally {
-    fs.rmSync(emptyDir, { recursive: true, force: true });
+    safeRmTempDir(emptyDir);
   }
 });
 
@@ -133,6 +147,52 @@ test('T15: 分词器领域词典不含「智能工作台」', () => {
   const toks = tokenize('智能工作台 产品经理');
   assert.ok(!toks.includes('智能工作台'), `不应切出 智能工作台，实际 ${JSON.stringify(toks)}`);
   assert.ok(toks.includes('产品经理'), '应切出 产品经理');
+});
+
+test('T16: 同一 Markdown 的 LF/CRLF/CR 切块结果完全一致', () => {
+  const md = '# 标题\n\n## 岗位职责\n负责检索\n## 任职要求\n要求 Python\n';
+  const lf = chunkMarkdown(md, 'jobs/demo.md');
+  const crlf = chunkMarkdown(md.replace(/\n/g, '\r\n'), 'jobs/demo.md');
+  const cr = chunkMarkdown(md.replace(/\n/g, '\r'), 'jobs/demo.md');
+  assert.ok(lf.length >= 2, `应至少 2 个 chunk，实际 ${lf.length}`);
+  assert.deepStrictEqual(crlf, lf, 'CRLF 切块应与 LF 完全一致');
+  assert.deepStrictEqual(cr, lf, 'CR 切块应与 LF 完全一致');
+  for (const c of lf) {
+    assert.ok(!c.text.includes('\r'), 'chunk 正文不应残留 CR');
+    assert.ok(!c.heading.includes('\r'), 'heading 不应残留 CR');
+  }
+});
+
+test('T17: CRLF 语料夹具索引与 LF 基线一致', () => {
+  const tmp = makeTempDir('kb-crlf-');
+  try {
+    const jobsDir = path.join(tmp, 'jobs');
+    fs.mkdirSync(jobsDir);
+    for (const name of fs.readdirSync(path.join(KB_DIR, 'jobs'))) {
+      if (!name.endsWith('.md') || name === 'README.md' || name.startsWith('.')) continue;
+      const lfText = fs.readFileSync(path.join(KB_DIR, 'jobs', name), 'utf8');
+      const crlfText = lfText.replace(/\r\n?/g, '\n').replace(/\n/g, '\r\n');
+      fs.writeFileSync(path.join(jobsDir, name), crlfText, 'utf8');
+    }
+    const idx = buildIndex(tmp);
+    assert.strictEqual(idx.fileCount, index.fileCount, 'fileCount 应与 LF 基线一致');
+    assert.strictEqual(idx.chunks.length, index.chunks.length, 'chunk 数应与 LF 基线一致');
+    assert.deepStrictEqual(
+      idx.chunks.map((c) => ({ source: c.source, heading: c.heading, text: c.text })),
+      index.chunks.map((c) => ({ source: c.source, heading: c.heading, text: c.text })),
+      'chunk 元数据与正文应与 LF 基线完全一致'
+    );
+    const r = retrieve(idx, '京东 算法产品经理', 5);
+    assert.ok(r.some((x) => x.source === 'jobs/jd-algo-pm.md'), 'CRLF 夹具应命中 jd-algo-pm.md');
+    const baseR = retrieve(index, '京东 算法产品经理', 5);
+    assert.deepStrictEqual(
+      r.map((x) => x.source),
+      baseR.map((x) => x.source),
+      '关键查询来源顺序应与 LF 基线一致'
+    );
+  } finally {
+    safeRmTempDir(tmp);
+  }
 });
 
 console.log(`\n${passed} 通过, ${failed} 失败`);

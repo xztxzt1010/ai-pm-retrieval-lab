@@ -1,0 +1,13 @@
+# 文本统一以 LF 存储/检出，避免 core.autocrlf 破坏切块与评测可复现性
+* text=auto eol=lf
+
+# 截图与二进制资产
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary

@@ -53,10 +53,16 @@ export function listJobFiles(kbDir) {
     .sort();
 }
 
+/** 在切块入口统一换行：CRLF 与单独 CR 一律转为 LF。
+ *  保证 Windows autocrlf 检出、Linux LF 与手工粘贴得到相同 chunk 语义。 */
+export function normalizeNewlines(text) {
+  return text.replace(/\r\n?/g, '\n');
+}
+
 /** 按 `## ` 标题切块；首个 `## ` 之前的前言块并入第一个小节。
  *  无任何 `## ` 标题的文件返回空数组（不产生 heading 为空的 chunk，满足 AC-5）。 */
 export function chunkMarkdown(text, source) {
-  const lines = text.split('\n');
+  const lines = normalizeNewlines(text).split('\n');
   const chunks = [];
   let frontmatter = [];
   let cur = null;

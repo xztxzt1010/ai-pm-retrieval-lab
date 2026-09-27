@@ -127,6 +127,7 @@ npm run capability
 - **词法基线，非语义检索**：TF-IDF 只能做字面 token 匹配。同义改写、语义近似（如「提示词」与「Prompt」的不同写法）不在当前能力范围，评测里的 2 条近失配题（`na09/na10`）正是这一边界。
 - **语料固定**：检索只索引 `kb/jobs/*.md`（11 份）。`README.md`、隐藏文件、`node_modules`、评测/报告均不入语料（由测试 T8/T9 断言）。
 - **样板块过滤仅用于评测**：评测对「原始来源 / 收录原则」等元数据块做过滤后再算指标；CLI 与展示页返回的是原始 Top-K，可能包含来源块。
+- **换行可复现**：切块入口统一把 CRLF/CR 归一为 LF，根目录 `.gitattributes` 固定文本为 LF；同一 commit 在 Windows（`core.autocrlf=true` 空克隆）与 Linux 上 chunk、测试与五项指标一致（T16/T17 回归）。
 
 ## Roadmap
 
