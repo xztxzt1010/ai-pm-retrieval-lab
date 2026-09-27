@@ -2,6 +2,15 @@
 
 一个**单一主旨、可复现**的岗位知识检索实验：以 11 份 AI 产品经理**公开招聘岗位快照 / 整理要点**为语料，实现 **TF-IDF 词法检索基线**（jieba 中文分词 + 余弦相似度 + Top-K），并用 **50 题可复现评测集**给出可核查的检索质量指标。当前是**检索与评测基线**，不是向量 RAG。
 
+![本地展示页：查询「RAG 检索增强」，命中来源片段与五项评测指标](assets/retrieval-desktop.png)
+
+**30 秒运行**（本地 Demo，无需部署）：
+
+```bash
+npm ci && npm test && npm run demo
+# 浏览器打开 http://localhost:3000
+```
+
 ## 为什么做
 
 转行 AI 产品经理岗位时，面临两个实际问题：
@@ -35,6 +44,14 @@ npm run eval         # 重跑评测，写 current.json（基线快照保护：�
 npm run demo         # 启动展示页 http://localhost:3000
 node kb/search.mjs "RAG 检索增强" --top 5   # CLI 检索
 ```
+
+## 界面预览
+
+本地展示页适配桌面与手机宽度；手机视口无横向溢出：
+
+![手机视口 375px：查询「Agent 智能体」，结果卡片可读](assets/retrieval-mobile.png)
+
+以上均为本地 `npm run demo` 截图，仓库不提供在线 Demo。
 
 ## 示例查询
 
